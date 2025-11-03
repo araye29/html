@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soldier Registration Terminal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Orbitron", "Poppins", sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      background: radial-gradient(circle at center, #0c1410 0%, #020402 100%);
+      color: #b9ffb0;
+      overflow-y: auto;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(transparent 97%, rgba(0, 255, 100, 0.05) 3%),
+                        linear-gradient(90deg, transparent 97%, rgba(0, 255, 100, 0.05) 3%);
+      background-size: 40px 40px;
+      animation: gridmove 10s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes gridmove {
+      from { background-position: 0 0; }
+      to { background-position: 40px 40px; }
+    }
+
+    .form-container {
+      position: relative;
+      z-index: 1;
+      background: rgba(10, 20, 10, 0.85);
+      border: 2px solid #00ff80;
+      box-shadow: 0 0 20px rgba(0, 255, 80, 0.3), inset 0 0 20px rgba(0, 255, 80, 0.2);
+      border-radius: 15px;
+      width: 95%;
+      max-width: 700px;
+      padding: 40px 50px;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      color: #00ff88;
+      text-shadow: 0 0 10px #00ff80;
+      margin-bottom: 25px;
+      letter-spacing: 2px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    fieldset {
+      border: 1px solid #00ff80;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 255, 100, 0.1);
+    }
+
+    legend {
+      padding: 5px 12px;
+      font-weight: 700;
+      color: #00ff99;
+      text-shadow: 0 0 8px #00ff80;
+      border: 1px solid #00ff80;
+      border-radius: 8px;
+      background: rgba(0, 30, 15, 0.7);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #a0ffb0;
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    input, select, textarea {
+      background: rgba(0, 30, 15, 0.6);
+      color: #e0ffe6;
+      border: 1px solid #00ff80;
+      border-radius: 8px;
+      padding: 12px 15px;
+      font-size: 15px;
+      width: 100%;
+      outline: none;
+      transition: all 0.3s ease;
+      margin-top: 5px;
+    }
+
+    input[type="file"] {
+      padding: 8px;
+      background: rgba(0, 20, 10, 0.6);
+      border: 1px solid #00ff80;
+      border-radius: 8px;
+      color: #b9ffb0;
+      cursor: pointer;
+    }
+
+    input[type="file"]::-webkit-file-upload-button {
+      background: #00ff80;
+      color: #002b10;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    input[type="file"]::-webkit-file-upload-button:hover {
+      background: #00ff99;
+      box-shadow: 0 0 10px rgba(0, 255, 120, 0.4);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      background: rgba(0, 50, 20, 0.8);
+      box-shadow: 0 0 10px #00ff80;
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg fill='lime' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      background: linear-gradient(90deg, #00cc66, #00ff99);
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      color: #002b10;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 1px;
+      box-shadow: 0 0 10px rgba(0, 255, 100, 0.3);
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #00ff99, #00cc66);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 255, 120, 0.6);
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 30px 25px;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Soldier Registration Terminal</h2>
+    <form action="https://google.com">
+      <!-- Basic Info Fieldset -->
+      <fieldset>
+        <legend>Basic Info</legend>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" value="Hassan araye">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" value="Secret123" required>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" value="+1234567890" required>
+      </fieldset>
+
+      <!-- Service Details Fieldset -->
+      <fieldset>
+        <legend>Service Details</legend>
+        <label for="id">Service ID</label>
+        <input type="text" id="id" value="S123456" required>
+
+        <label for="rank">Rank</label>
+        <select id="rank" required>
+          <option value="">Select rank</option>
+          <option selected>captain</option>
+          <option>Corporal</option>
+          <option>Sergeant</option>
+          <option>Lieutenant</option>
+          <option>Captain</option>
+          <option>Major</option>
+          <option>Colonel</option>
+          <option>General</option>
+        </select>
+
+        <label for="unit">Unit</label>
+        <input type="text" id="unit" value="Alpha Squad">
+
+        <label for="file">Upload Service File</label>
+        <input type="file" id="file" name="file">
+      </fieldset>
+
+      <!-- Equipment / Other Inputs Fieldset -->
+      <fieldset>
+        <legend>Equipment Information</legend>
+        <label for="weapon">Primary Weapon</label>
+        <input type="text" id="weapon" value="M4 Carbine" required>
+
+        <label for="sidearm">Sidearm</label>
+        <input type="text" id="sidearm" value="Glock 17">
+
+        <label for="gear">Protective Gear</label>
+        <input type="text" id="gear" value="Kevlar vest, Helmet">
+
+        <label for="notes">Additional Equipment / Notes</label>
+        <textarea id="notes" rows="3">Night vision goggles, extra ammo</textarea>
+      </fieldset>
+
+      <!-- Register Button -->
+      <button type="submit">Register Soldier</button>
+    </form>
+  </div>
+</body>
+</html>
